@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Student Name: Samuel Modlin-->
+    <!-- Date: November 11th-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Branson XC</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--favicons generated from realfavicongenerator.net-->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="favicon/manifest.json">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+  <body>
+    <div class="modalDiv"></div>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" data-toggle="collapse" data-target="#navbarMain" class="navbar-toggle collapsed"><span class="sr-only">Togglunce navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">Branson Cross Country</a>
+        </div>
+        <div id="navbarMain" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li id="homeLi" class="active"><a href="#" id="home">Home</a></li>
+            <li id="aboutLi"><a href="#" id="about">About</a></li>
+          </ul>
+          <form role="search" class="navbar-form navbar-right">
+            <div class="form-group">
+              <input id="search" type="text" placeholder="Search" class="form-control">
+              <button id="submit" type="button" class="btn btn-default">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div style="display:none" class="alert alert-info">
+      <button type="button" class="close">×</button><strong>Searched!</strong> Click the X to exit searching mode
+    </div>
+    <div style="display:none" class="aboutContent">
+      <div class="row">
+        <div class="col-sm-4 logoContainer"><img id="male" src="images/femaleFigure.png"></div>
+        <div class="col-sm-4 logoContainer"><img id="fullLogo" src="images/bullsLogo.png"></div>
+        <div class="col-sm-4 logoContainer"><img id="female" src="images/maleFigure.png"></div>
+      </div>
+      <div class="description">
+        <h3>
+           
+          The Branson Bulls Cross Country Team is the official team for Branson High School in Ross, California. 
+          They practice at Phoenix Lake which is conveniently located near school. The team has 16 players this year
+          and is coached by Steve Reinertsen.
+        </h3><br>
+        <h6>
+           
+          Website developed by Samuel Modlin
+        </h6>
+      </div>
+    </div>
+    <div class="mainHeader"> 
+      <div class="row">
+        <div class="col-lg-6">
+          <h1 class="title">Branson</h1>
+        </div>
+        <div class="col-lg-6">
+          <h1 class="title">Bulls</h1>
+        </div>
+      </div>
+      <div class="logoContainer"><img id="logo" src="images/bulls.jpg"></div>
+      <h3 id="subtitle">Roster</h3>
+      <select id="select" class="form-control">
+        <option>All</option>
+        <option>Varsity</option>
+        <option>Junior Varsity</option>
+        <option>A Team</option>
+        <option>B Team</option>
+      </select>
+    </div>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Photo</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Sex</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <script id="modal-template" type="text/x-handlebars-template">
+      <div id="personModal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+              <h3 class="modal-title">{{firstName}} {{lastName}}</h3>
+              <h6 class="modal-title">{{sex}}</h6>
+            </div>
+            <div class="modal-body"><img id="photo" src="{{src}}">
+              <h5>Team: {{team}}</h5>
+              <h5>Skill: {{skill}}</h5>
+              <h5>Mile Time: {{mileTime}}</h5>
+            </div>
+            <div class="modal-footer">
+              <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script id="person-template" type="text/x-handlebars-template">{{#each athletes}}
+      <tr id="{{@index}}">
+        <td> <img id="photo" src="{{src}}"></td>
+        <td>{{firstName}}</td>
+        <td>{{lastName}}</td>
+        <td>{{sex}}</td>
+      </tr>{{/each}}
+    </script>
+    <script id="filtered-template" type="text/x-handlebars-template">{{#each athletes}}
+      <tr id="{{lookup ../num @key}}">
+        <td> <img id="photo" src="{{src}}"></td>
+        <td>{{firstName}}</td>
+        <td>{{lastName}}</td>
+        <td>{{sex}}</td>
+      </tr>{{/each}}
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/handlebarsjs/4.0.5/handlebars.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+//- out: . , compress: false
+
+doctype html
+html
+  include ./templates/head.jade
+  
+  body
+    .modalDiv
+    nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbarMain')
+            span.sr-only Togglunce navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') Branson Cross Country
+        #navbarMain.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li.active#homeLi
+              a(href='#')#home Home
+            li#aboutLi
+              a(href='#')#about About
+          
+          form.navbar-form.navbar-right(role='search')
+            .form-group
+              input.form-control#search(type='text', placeholder='Search')
+              button.btn.btn-default#submit(type='button') Submit
+    .alert.alert-info(style='display:none')
+      button.close(type='button') ×
+      strong Searched!
+      |  Click the X to exit searching mode
+
+    .aboutContent(style="display:none")
+      .row
+        .col-sm-4.logoContainer
+          img#male(src="images/femaleFigure.png")
+        .col-sm-4.logoContainer
+          img#fullLogo(src="images/bullsLogo.png")
+        .col-sm-4.logoContainer
+          img#female(src="images/maleFigure.png")
+      .description
+        h3 
+          | The Branson Bulls Cross Country Team is the official team for Branson High School in Ross, California. 
+          | They practice at Phoenix Lake which is conveniently located near school. The team has 16 players this year
+          | and is coached by Steve Reinertsen.
+        br
+        h6 
+          | Website developed by Samuel Modlin
+      
+    .mainHeader 
+      .row
+        .col-lg-6
+          h1.title Branson
+        .col-lg-6
+          h1.title Bulls
+      .logoContainer
+        img#logo(src="images/bulls.jpg")
+      h3#subtitle Roster
+      select#select.form-control
+        option All
+        option Varsity
+        option Junior Varsity
+        option A Team
+        option B Team
+
+    table.table.table-striped.table-hover
+          thead
+            tr
+              th Photo
+              th First Name
+              th Last Name
+              th Sex
+          tbody#tableBody
+          
+    
+    script(id="modal-template" type="text/x-handlebars-template")
+      .modal.fade#personModal
+        .modal-dialog
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+              h3.modal-title {{firstName}} {{lastName}}
+              h6.modal-title {{sex}}
+            .modal-body
+              img#photo(src="{{src}}")
+              h5 Team: {{team}}
+              h5 Skill: {{skill}}
+              h5 Mile Time: {{mileTime}}
+            .modal-footer
+              button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+
+    
+    script(id="person-template" type="text/x-handlebars-template")
+      {{#each athletes}}
+      tr(id="{{@index}}")
+        td 
+          img#photo(src="{{src}}")
+        td {{firstName}}
+        td {{lastName}}
+        td {{sex}}
+      {{/each}}
+      
+    script(id="filtered-template" type="text/x-handlebars-template")
+      {{#each athletes}}
+      tr(id="{{lookup ../num @key}}")
+        td 
+          img#photo(src="{{src}}")
+        td {{firstName}}
+        td {{lastName}}
+        td {{sex}}
+      {{/each}}
+
+
+    
+              
+    include ./templates/scripts.jade
+  
